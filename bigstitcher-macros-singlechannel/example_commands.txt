@@ -1,0 +1,37 @@
+BigStitcher single-channel pipeline - example headless commands
+================================================================
+
+Run from any directory. Replace:
+  <FIJI>    path to the Fiji executable, e.g. C:\Fiji.app\fiji-windows-x64.exe
+            (older installs: ImageJ-win64.exe; Linux: ./fiji-linux-x64 or ./ImageJ-linux64)
+  <MACROS>  path to this folder (bigstitcher-macros-singlechannel)
+  <XML>     path to the BigStitcher dataset .xml (modified in place - back it up first)
+
+Use absolute paths and keep them in double quotes (spaces are fine).
+
+
+Windows (PowerShell)
+--------------------
+& "<FIJI>" --headless -macro "<MACROS>\01_find_interest_points.ijm" "<XML>"
+& "<FIJI>" --headless -macro "<MACROS>\02_register.ijm"             "<XML>"
+& "<FIJI>" --headless -macro "<MACROS>\03_export_views_zarr.ijm"    "<XML>"
+
+Example:
+& "C:\Fiji.app\fiji-windows-x64.exe" --headless -macro "C:\code\microglia-dualview\bigstitcher-macros-singlechannel\01_find_interest_points.ijm" "D:\data\sample_out\sample_npy2bdv.xml"
+
+
+Windows (cmd)
+-------------
+"<FIJI>" --headless -macro "<MACROS>\01_find_interest_points.ijm" "<XML>"
+"<FIJI>" --headless -macro "<MACROS>\02_register.ijm"             "<XML>"
+"<FIJI>" --headless -macro "<MACROS>\03_export_views_zarr.ijm"    "<XML>"
+
+
+Linux / macOS
+-------------
+"<FIJI>" --headless -macro "<MACROS>/01_find_interest_points.ijm" "<XML>"
+"<FIJI>" --headless -macro "<MACROS>/02_register.ijm"             "<XML>"
+"<FIJI>" --headless -macro "<MACROS>/03_export_views_zarr.ijm"    "<XML>"
+
+
+Output of step 3: <xml_dir>/views/<xml_basename>_views.zarr

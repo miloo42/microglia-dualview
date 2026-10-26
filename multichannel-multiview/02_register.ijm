@@ -10,7 +10,11 @@ ref_channel = 0;   // must match 01_find_interest_points.ijm
 
 xml_path = getArgument();
 xml_path = replace(xml_path, "file:", "");
+// headless Fiji can prepend its own directory to the argument: keep the last absolute Windows path
+xml_path = replace(xml_path, "^.+([A-Za-z]:[\\\\/])", "$1");
 print("XML: " + xml_path);
+if (!File.exists(xml_path))
+    exit("ERROR: XML not found: " + xml_path);
 
 common = "select=[" + xml_path + "] " +
     "process_angle=[All angles] " +

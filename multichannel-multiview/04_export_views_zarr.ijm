@@ -13,7 +13,11 @@ cropped_bbox_name = "Cropped_Z";     // box used for export
 
 xml_path = getArgument();
 xml_path = replace(xml_path, "file:", "");
+// headless Fiji can prepend its own directory to the argument: keep the last absolute Windows path
+xml_path = replace(xml_path, "^.+([A-Za-z]:[\\\\/])", "$1");
 print("XML: " + xml_path);
+if (!File.exists(xml_path))
+    exit("ERROR: XML not found: " + xml_path);
 
 // --- 1. maximal bounding box over all transformed views ---
 run("Define Bounding Box",
@@ -107,7 +111,7 @@ run("Image Fusion",
     "define_input=[Auto-load from input data (values shown below)] " +
     "export=OME-ZARR " +
     "compression=Zstandard " +
-    "zarr_dataset_path=" + output_zarr + " " +
+    "zarr_dataset_path=[" + output_zarr + "] " +
     "show_advanced_block_size_options " +
     "block_size_x=256 " +
     "block_size_y=256 " +

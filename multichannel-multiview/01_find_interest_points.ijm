@@ -9,7 +9,11 @@ ref_channel = 0;   // channel index used for detection/registration (as listed i
 
 xml_path = getArgument();
 xml_path = replace(xml_path, "file:", "");
+// headless Fiji can prepend its own directory to the argument: keep the last absolute Windows path
+xml_path = replace(xml_path, "^.+([A-Za-z]:[\\\\/])", "$1");
 print("XML: " + xml_path);
+if (!File.exists(xml_path))
+    exit("ERROR: XML not found: " + xml_path);
 
 run("Detect Interest Points for Registration",
     "select=[" + xml_path + "] " +
