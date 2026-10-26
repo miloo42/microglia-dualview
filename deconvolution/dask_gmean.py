@@ -1,42 +1,33 @@
+"""Fuse the two deconvolved views by voxel-wise geometric mean."""
+from pathlib import Path
+
 import dask.array as da
-import matplotlib.pyplot as plt
-from scipy.stats import gmean
-import numpy as np
-
-
-import time
-import dask
-
-import traceback
 from dask.distributed import Client, LocalCluster
 
+# ---------------------------------------------------------------- paths ----
+DATA_DIR = Path(r"X:\Microglia\2025_11_06_M1_dw")
+VIEW_A_PATH = DATA_DIR / "viewAbigcrop_decon.zarr"
+VIEW_B_PATH = DATA_DIR / "viewBbigcrop_decon.zarr"
+OUT_PATH = DATA_DIR / "big_swdecon_fused.zarr"
 
-def dask_gmean(a,b):
-    return gmean(np.stack([a, b]),axis = 0)
 
-
-if __name__ == '__main__':
-    print('yay')
-    bytes_per_gb = 1024*1024*1024
-    debug = True
-
+if __name__ == "__main__":
     cluster = LocalCluster(
-    n_workers=1,  # Number of workers
-    memory_limit="16GB", # per worker
-    processes = False,
-    threads_per_worker = 12,
-    dashboard_address = 'localhost:8787',
+        n_workers=1,
+        memory_limit="16GB",  # per worker
+        processes=False,
+        threads_per_worker=12,
+        dashboard_address="localhost:8787",
     )
+    client = Client(cluster)
+    print(client.dashboard_link)
 
-    c = Client(cluster)
+    view_a = da.from_zarr(VIEW_A_PATH)
+    view_b = da.from_zarr(VIEW_B_PATH)
 
-    dataA = da.from_zarr( r"X:\Microglia\2025_11_06_M1_dw\viewAbigcrop_decon.zarr")
-    dataB = da.from_zarr( r"X:\Microglia\2025_11_06_M1_dw\viewBbigcrop_decon.zarr")
-    outimgpath = r"X:\Microglia\2025_11_06_M1_dw\big_swdecon_fused.zarr"
+    # geometric mean of two arrays; same as scipy gmean but without the
+    # log(0) warnings and the stack copy
+    fused = da.sqrt(view_a * view_b)
 
-    out = da.map_blocks(dask_gmean, dataA, dataB)
-
-    out.to_zarr(outimgpath, overwrite = True)
-    print('Done')
-
-    
+    fused.to_zarr(OUT_PATH, overwrite=True)
+    print(f"Done -> {OUT_PATH}")
