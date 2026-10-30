@@ -1,0 +1,6 @@
+napari
+qtpy
+numpy
+pandas
+tifffile
+slab-atlas

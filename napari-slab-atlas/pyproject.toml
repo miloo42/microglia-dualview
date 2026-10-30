@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "napari-slab-atlas"
+version = "0.1.0"
+description = "napari widget: register a fused slab to the Allen atlas, show regions, write pos.pos files for ROIs"
+requires-python = ">=3.10"
+dependencies = ["napari", "qtpy", "numpy", "pandas", "tifffile", "slab-atlas"]
+
+[project.entry-points."napari.manifest"]
+napari-slab-atlas = "napari_slab_atlas:napari.yaml"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+napari_slab_atlas = ["napari.yaml"]

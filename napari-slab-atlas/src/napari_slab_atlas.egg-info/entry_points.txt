@@ -1,0 +1,2 @@
+[napari.manifest]
+napari-slab-atlas = napari_slab_atlas:napari.yaml

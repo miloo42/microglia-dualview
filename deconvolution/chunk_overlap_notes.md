@@ -1,6 +1,6 @@
 # Chunk overlap and chunk size for tiled RL deconvolution
 
-Notes for `dask_tnia_deconv.py` (dask `map_overlap` + tnia `richardson_lucy_cp`, `noncirc=True`).
+Notes for `dualview_deconv.py` (dask `map_overlap` + tnia `richardson_lucy_cp`, `noncirc=True`).
 
 ## How much overlap (`depth`)?
 

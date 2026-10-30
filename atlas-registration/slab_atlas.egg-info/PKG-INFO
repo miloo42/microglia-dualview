@@ -1,0 +1,15 @@
+Metadata-Version: 2.4
+Name: slab-atlas
+Version: 0.1.0
+Summary: Register a light-sheet sagittal brain slab (OME-Zarr) to the Allen Mouse Brain Atlas CCFv3
+Requires-Python: >=3.10
+Requires-Dist: numpy
+Requires-Dist: scipy
+Requires-Dist: scikit-image
+Requires-Dist: zarr
+Requires-Dist: pynrrd
+Requires-Dist: itk-elastix
+Requires-Dist: brainglobe-registration
+Requires-Dist: pandas
+Requires-Dist: matplotlib
+Requires-Dist: tifffile

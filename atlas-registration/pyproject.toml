@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "slab-atlas"
+version = "0.1.0"
+description = "Register a light-sheet sagittal brain slab (OME-Zarr) to the Allen Mouse Brain Atlas CCFv3"
+requires-python = ">=3.10"
+dependencies = ["numpy", "scipy", "scikit-image", "zarr", "pynrrd", "itk-elastix", "brainglobe-registration",
+                "pandas", "matplotlib", "tifffile"]
+
+[tool.setuptools]
+packages = ["slab_atlas"]

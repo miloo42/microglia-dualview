@@ -9,6 +9,14 @@ Run from any directory. Replace:
 
 Use absolute paths and keep them in double quotes (spaces are fine).
 
+Known issue (Oct 2026): a Fiji install from 2026-10-26 (BigStitcher 3.0.8) fails in
+--headless mode with "java.lang.VerifyError ... GenericDialog is not assignable to
+java/awt/Container". Adding -Xverify:none gets past that, but BigStitcher then receives
+an empty XML path (FileNotFoundException). A Fiji install from 2025-11-24 works.
+
+In PowerShell the command returns before Fiji finishes; to run steps one after another,
+use cmd / a .bat file, or: Start-Process -Wait -NoNewWindow "<FIJI>" -ArgumentList ...
+
 
 Windows (PowerShell)
 --------------------

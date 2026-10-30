@@ -1,0 +1,10 @@
+name: napari-slab-atlas
+display_name: Slab atlas
+contributions:
+  commands:
+    - id: napari-slab-atlas.widget
+      python_name: napari_slab_atlas._widget:SlabAtlasWidget
+      title: Slab atlas (register, regions, ROIs)
+  widgets:
+    - command: napari-slab-atlas.widget
+      display_name: Slab atlas

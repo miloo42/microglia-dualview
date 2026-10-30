@@ -1,0 +1,14 @@
+pyproject.toml
+slab_atlas/__init__.py
+slab_atlas/__main__.py
+slab_atlas/atlas.py
+slab_atlas/elastix.py
+slab_atlas/export.py
+slab_atlas/pipeline.py
+slab_atlas/qc.py
+slab_atlas/slab.py
+slab_atlas.egg-info/PKG-INFO
+slab_atlas.egg-info/SOURCES.txt
+slab_atlas.egg-info/dependency_links.txt
+slab_atlas.egg-info/requires.txt
+slab_atlas.egg-info/top_level.txt

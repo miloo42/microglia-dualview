@@ -1,0 +1,11 @@
+Metadata-Version: 2.4
+Name: napari-slab-atlas
+Version: 0.1.0
+Summary: napari widget: register a fused slab to the Allen atlas, show regions, write pos.pos files for ROIs
+Requires-Python: >=3.10
+Requires-Dist: napari
+Requires-Dist: qtpy
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: tifffile
+Requires-Dist: slab-atlas

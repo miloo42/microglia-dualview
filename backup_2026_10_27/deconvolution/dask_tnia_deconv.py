@@ -14,6 +14,7 @@ import dask
 import dask.array as da
 import numpy as np
 from dask.distributed import Client, LocalCluster
+from scipy import ndimage as ndi
 from tifffile import imread
 from tnia.deconvolution.richardson_lucy import richardson_lucy_cp
 
@@ -44,6 +45,10 @@ CHUNK_FACTOR = 3
 SAVE_RAW_COPY = False  # also write the undeconvolved input next to the output
 GPU_ID = 0  # with multiple GPUs, use the queue logic from the original repo
             # and do not use more workers than GPUs
+# RL fills empty input (outside a view's coverage) with bright extrapolated
+# values; these are zeroed in the output, grown by this margin (voxels) since
+# the artefact reaches a few voxels past the empty region
+EMPTY_MARGIN = 5
 
 
 def free_gpu_memory():
@@ -73,7 +78,13 @@ def rl_dask_task(img_chunk, psf, num_iterations, block_id=None):
         result = richardson_lucy_cp(img_chunk.astype(np.float32), psf,
                                     num_iterations, noncirc=True,
                                     mask=mask_chunk)
-        return np.asarray(result, dtype=np.float32)
+        result = np.asarray(result, dtype=np.float32)
+        # the overlap (psf size) is wider than the margin, so this is exact
+        # at chunk edges
+        if not mask_chunk.all():
+            empty = ndi.binary_dilation(~mask_chunk, iterations=EMPTY_MARGIN)
+            result[empty] = 0
+        return result
     except Exception:
         traceback.print_exc()
         raise

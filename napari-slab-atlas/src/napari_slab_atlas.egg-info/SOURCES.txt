@@ -1,0 +1,11 @@
+pyproject.toml
+src/napari_slab_atlas/__init__.py
+src/napari_slab_atlas/_widget.py
+src/napari_slab_atlas/napari.yaml
+src/napari_slab_atlas/pospos.py
+src/napari_slab_atlas.egg-info/PKG-INFO
+src/napari_slab_atlas.egg-info/SOURCES.txt
+src/napari_slab_atlas.egg-info/dependency_links.txt
+src/napari_slab_atlas.egg-info/entry_points.txt
+src/napari_slab_atlas.egg-info/requires.txt
+src/napari_slab_atlas.egg-info/top_level.txt
